@@ -46,6 +46,11 @@ Route::middleware( ['admin'])->group(function () {
     Route::get('/copy/list', [CopyController::class, 'listView']); 
 });
 
+//Librarian
+Route::middleware(['librarian'])->group(function () {
+    // ide kerülnek a könyvtáros jogosultságok
+});
+
 //SIMPLE USER
 Route::middleware(['auth.basic'])->group(function () {
 
@@ -87,4 +92,6 @@ Route::get('/api/users_with_r', [ReservationController::class, 'usersWithR']);
 
 Route::get('/api/lendings_with_u', [UserController::class, 'LendingsWithU']);
 Route::get('/api/reservations_with_u', [UserController::class, 'ReservationsWithU']);
+Route::get('/api/books_with_any/{text}', [BookController::class, 'startsBArgument']);
+
 require __DIR__.'/auth.php';

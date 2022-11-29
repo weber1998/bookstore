@@ -66,4 +66,16 @@ class LendingController extends Controller
         $copies = Copy::all();
         return view('lending.new', ['users' => $users, 'copies' => $copies]);
     }
+
+    public function moreLendings($db) {
+        $user = Auth::user();
+        $lendings = DB::table('lendings as l')
+        ->selectRaw('count(l.copy_id) as number_of_copies, l.copy_id')
+        ->where('l.user_id', $user->id)
+        ->groupBy('l.copy_id')
+        ->having('number_of_copies','>='.$db)
+        ->get();
+        
+        return $lendings;
+    }
 }

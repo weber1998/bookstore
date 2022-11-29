@@ -26,6 +26,15 @@ class CopyController extends Controller
     {
         Copy::find($id)->delete();
     }
+
+    public function waste()
+    {
+        $waste_copies = DB::table('copies')
+            ->select('copy_id')
+            ->where('status', 2)
+            ->get();
+    }
+
     public function store(Request $request)
     {
         $copy = new Copy();

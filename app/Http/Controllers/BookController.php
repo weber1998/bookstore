@@ -50,4 +50,20 @@ class BookController extends Controller
             ->get();
         return $konyvek;
     }
+
+    public function startB() {
+        $konyvek = DB::table('books')
+            ->select('author')
+            ->whereRaw("author like 'B%'")
+            ->get();
+        return $konyvek;
+    }
+
+    public function startsBArgument($text) {
+        $konyvek = DB::table('books')
+            ->select('author')
+            ->where("author","like", $text."%")
+            ->get();
+        return $konyvek;
+    }
 }

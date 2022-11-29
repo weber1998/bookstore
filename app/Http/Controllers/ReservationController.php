@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\DB;
 class ReservationController extends Controller
 {
     //
+    public function store(Request $request) {
+        $reservations = new reservations();
+        $reservations->book_id = $request->book_id;
+        $reservations->user_id = $request->user_id;
+        $reservations->start = $request->start;
+        $reservations->message = $request->message;
+        $reservations->message_date = $request->message_date;
+        $reservations->status = $request->status;
+    }
 
     public function elojegyzesDb() {
         $user = Auth::user();
