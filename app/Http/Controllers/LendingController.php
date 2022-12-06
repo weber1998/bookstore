@@ -78,4 +78,21 @@ class LendingController extends Controller
         
         return $lendings;
     }
+
+    public function lengthen($copy_id, $start) {
+        $user = Auth::user();
+        $book = DB::table('lending as l')
+        ->select('c.book_id')
+        ->join('copies as c','l.copy_id','=','c.copy_id')
+        ->where('l.user_id', $user)
+        ->where('l.start', $start)
+       // ->get()
+    }
+
+    public function books_back() {
+        $books = DB::table('lendings as l')
+        ->join('copies as c', 'l.copy_id', '=', 'c.copy_id')
+        ->join('books as b', 'c.book_id', '=', 'b.book_id')
+        ->select("b.author")
+    }
 }

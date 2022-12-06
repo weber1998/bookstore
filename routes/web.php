@@ -8,6 +8,8 @@ use App\Http\Controllers\ReservationController;
 use App\Models\Copy;
 use App\Models\reservations;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,7 @@ Route::middleware( ['admin'])->group(function () {
     Route::get('/copy/new', [CopyController::class, 'newView']);
     Route::get('/copy/edit/{id}', [CopyController::class, 'editView']);
     Route::get('/copy/list', [CopyController::class, 'listView']); 
+    Route::delete('/delete/first', [ReservationController::class, 'deleteOldReservs']);
 });
 
 //Librarian
@@ -94,4 +97,10 @@ Route::get('/api/lendings_with_u', [UserController::class, 'LendingsWithU']);
 Route::get('/api/reservations_with_u', [UserController::class, 'ReservationsWithU']);
 Route::get('/api/books_with_any/{text}', [BookController::class, 'startsBArgument']);
 
+//email
+Route::get('/send_mail', [MailController::class, 'index']);
+
+//upload
+Route::get('/file_upload', [FileController::class, 'index']);
+Route::post('/file_upload/store', [FileController::class, 'store'])->name('file.store');
 require __DIR__.'/auth.php';

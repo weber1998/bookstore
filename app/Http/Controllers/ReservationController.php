@@ -42,4 +42,11 @@ class ReservationController extends Controller
         ->get();
         return $users;
     }
+
+    public function deleteOldReservs() {
+        $reservations = DB::table('reservations')
+            ->where('status', 1)
+            ->delete();
+        return $reservations;
+    }
 }
